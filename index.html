@@ -1,0 +1,49 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>リバーシ</title>
+</head>
+<body style="background: #dddddd;">
+  <canvas id="gamefield" style="position: absolute; left:0px;   top:0px;" width="640" height="640"></canvas>
+  <div    id="panel"     style="position: absolute; left:640px; top:0px;"></div><br>
+  <div    id="newRoom"   style="position: absolute; left:640px; top:320px;"></div><br>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+  <script type="text/javascript">
+    const socketio = io.connect("http://localhost:8080");
+
+    const canvas  = document.getElementById("gamefield");
+    const panel   = document.getElementById("panel");
+    const newRoom = document.getElementById("newRoom");
+
+
+
+    //////////////////////////////////
+    // ### サーバとの通信 ###
+    // サーバから自分の名前(ID)を受け取る
+    //////////////////////////////////
+    socketio.on("getName", function(data) {
+        panel.innerHTML += "サーバから受け取った自分の名前(ID):" + data.value.name;
+    });
+
+
+
+    //////////////////////////////////
+    // ### マウスの操作 ###
+    // コマをオセロ盤に置く（マウスクリック）
+    //////////////////////////////////
+    document.onmousedown = function(e) {
+        panel.innerHTML += "マウスクリック（コマを置く処理の予定）<br>";
+    };
+
+
+    
+    //////////////////////////////////
+    // ### 初期化 ###
+    // 最初の表示（オセロ盤を表示）
+    //////////////////////////////////
+    window.onload = function() {
+        panel.innerHTML = "オセロ盤表示予定<br>";
+    };
+  </script>
+</body>
+</html>
